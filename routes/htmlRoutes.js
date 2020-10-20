@@ -1,9 +1,13 @@
-// ===============================================================================
-// DEPENDENCIES
-// We need to include the path package to get the correct file path for our html
-// ===============================================================================
-var path = require("path");
 
+
+// ===============================================================================
+// LOAD DATA
+// We are linking our routes to a series of "data" sources.
+// These data sources hold arrays of information on table-data, waitinglist, etc.
+// ===============================================================================
+
+var tableData = require("../data/tableData");
+var waitListData = require("../data/waitinglistData");
 
 // ===============================================================================
 // ROUTING
@@ -16,15 +20,15 @@ module.exports = function(app) {
   // ---------------------------------------------------------------------------
 
   app.get("/tables", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/tables.html"));
+    res.render("tables", {tableData, waitListData});
   });
 
   app.get("/reserve", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/reserve.html"));
+    res.render("reserve");
   });
 
   // If no matching route is found default to home
   app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/home.html"));
+    res.render("home");
   });
 };
